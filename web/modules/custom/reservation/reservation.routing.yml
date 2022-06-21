@@ -1,0 +1,41 @@
+#reservation.example:
+#  path: '/api/v1/example'
+#  defaults:
+#    _controller: '\Drupal\reservation\Controller\ReservationController::example'
+#    _title: 'See on test texti näitamiseks'
+#  requirements:
+#    _permission: 'access content'
+#
+#reservation.reservations:
+#  path: '/reservations-list'
+#  defaults:
+#    _controller: '\Drupal\reservation\Controller\ReservationController::showAvailableTimes'
+#    _title: 'Reservations'
+#  requirements:
+#    _permission: 'access content'
+#
+##reservation.rest_api_get:
+##  path: '/api/v1/reservations'
+##  defaults:
+##    _controller: '\Drupal\reservation\Controller\ReservationController::getData'
+##  methods: ['GET']
+##  requirements:
+##    _permission: 'access content'
+##
+##reservation.rest_api_post:
+##  path: '/api/v1/post_reservations'
+##  defaults:
+##    _controller: '\Drupal\reservation\Controller\ReservationController::postData'
+##    _title: 'POST DATA'
+##  methods: ['GET']
+##  requirements:
+##    _permission: 'access content'
+#
+#
+#entity.reservation.settings:
+#  path: 'admin/structure/reservation'
+#  defaults:
+#    _form: '\Drupal\reservation\Form\ReservationSettingsForm'
+#    _title: 'Reservation'
+#  requirements:
+#    _permission: 'administer reservation'
