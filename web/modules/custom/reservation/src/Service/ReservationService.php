@@ -59,7 +59,8 @@ class ReservationService {
       $dateTime = \Drupal::service('date.formatter')
         ->format($date_original->getTimestamp(), 'custom', 'Y-m-d H:i:s');
       $reservationHour = (new \DateTime($dateTime))->format('G');
-      unset($availTimes[$reservationHour]);
+//      unset($availTimes[$reservationHour]);
+      $availTimes[$reservationHour]=FALSE;
 
     }
     return $availTimes;
