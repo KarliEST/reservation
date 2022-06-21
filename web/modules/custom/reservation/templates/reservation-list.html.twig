@@ -1,0 +1,30 @@
+{#
+/**
+ * @file
+ * Default theme implementation to present a reservation entity.
+ *
+ * This template is used when viewing a canonical reservation page,
+ *
+ * Available variables:
+ * - content: A list of content items. Use 'content' to print all content, or
+ *   print a subset such as 'content.label'.
+ * - attributes: HTML attributes for the container element.
+ *
+ * @see template_preprocess_reservation()
+ */
+#}
+
+<ul>
+  {% for item in items %}
+    {% if item.available == 'FALSE' %}
+      <div class="taken">
+        booked: {{ item.time }} - {{ item.time+1 }}
+      </div>
+    {% else %}
+      <div class="avail">
+        available: {{ item.time }} - {{ item.time+1 }}
+      </div>
+    {% endif %}
+  {% endfor %}
+</ul>
+

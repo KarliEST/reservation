@@ -1,0 +1,9 @@
+reservation:
+  version: 1.x
+  css:
+    layout:
+      css/reservation.css: {}
+    theme:
+      css/reservation.css: {}
+#  js:
+#    js/cuddly-slider.js: {}
