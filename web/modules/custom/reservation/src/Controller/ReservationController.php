@@ -16,6 +16,7 @@ class ReservationController extends ControllerBase {
     /*** @var ReservationService $reservationService */
     $reservationService = \Drupal::service(ReservationService::SERVICE_ID);
     $tests = $reservationService->availTimes();
+
     foreach ($tests as $key => $value) {
       if ($value) {
         $result = 'TRUE';
