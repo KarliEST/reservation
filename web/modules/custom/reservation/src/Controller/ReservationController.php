@@ -2,11 +2,8 @@
 
 namespace Drupal\reservation\Controller;
 
-use Drupal\Component\Serialization\Json;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\reservation\Service\ReservationService;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\Serializer\Encoder\JsonDecode;
 
 
 /**
