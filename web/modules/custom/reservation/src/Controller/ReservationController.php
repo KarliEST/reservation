@@ -33,24 +33,7 @@ class ReservationController extends ControllerBase {
     ];
 
   }
-  public function content() {
-    /*** @var ReservationService $reservationService */
-    $reservationService = \Drupal::service(ReservationService::SERVICE_ID);
-    $tests = $reservationService->availTimes();
-    foreach ($tests as $key => $value) {
-      if ($value) {
-        $result = 'TRUE';
-      }else{
-        $result = 'FALSE';
-      }
-      $times[$key] = ['key'=>$key,'value'=>$result];
-    }
 
-    return [
-      '#theme' => 'reservation_list',
-      '#items' => $times,
-    ];
-  }
 
   /**
    * Builds the response.

@@ -14,10 +14,4 @@ reservation.reservations:
   requirements:
     _permission: 'access content'
 
-reservation.available:
-  path: '/test-list'
-  defaults:
-    _controller: '\Drupal\reservation\Controller\ReservationController::content'
-    _title: 'AVAILABLE'
-  requirements:
-    _permission: 'access content'
+
