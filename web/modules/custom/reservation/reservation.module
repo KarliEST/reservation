@@ -1,15 +1,21 @@
 <?php
 
 /**
+ * @file
+ * Provides a custom theme hook.
+ */
+
+/**
  * Implements hook_theme().
  */
-function reservation_theme($existing, $type, $theme, $path) {
+function reservation_theme() {
 
   return [
-    'reservations_list' => [
+    'list_reservations' => [
       'variables' => [
         'items' => [],
       ],
     ],
   ];
 }
+

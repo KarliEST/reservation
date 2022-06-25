@@ -1,4 +1,4 @@
-name: Reservation
+name: Reservation list
 type: module
 description: Provides additional functionality for the site.
 package: Custom

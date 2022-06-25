@@ -43,8 +43,8 @@ class ReservationService {
 
     $reservationIds = $nodeStorage->getQuery()
       ->condition('type', 'reservation')
-      ->condition('field_start_date', '2022-06-17T00:00:00', '>')
-      ->condition('field_start_date', '2022-06-17T23:59:59', '<')
+      ->condition('field_start_date', date('Y-m-d').'T00:00:00', '>')
+      ->condition('field_start_date', date('Y-m-d').'T23:59:59', '<')
       ->condition('field_confirmed', 1)
       ->execute();
 
@@ -59,7 +59,6 @@ class ReservationService {
       $dateTime = \Drupal::service('date.formatter')
         ->format($date_original->getTimestamp(), 'custom', 'Y-m-d H:i:s');
       $reservationHour = (new \DateTime($dateTime))->format('G');
-//      unset($availTimes[$reservationHour]);
       $availTimes[$reservationHour]=FALSE;
 
     }

@@ -25,9 +25,9 @@ class ReservationController extends ControllerBase {
       }
       $times[$key] = ['time'=>$key,'available'=>$result];
     }
-
+//var_dump($times);die();
     return [
-      '#theme' => 'reservation_list',
+      '#theme' => 'list_reservations',
       '#items' => $times,
       '#attached'=>['library'=>['reservation/reservation']]
     ];
