@@ -15,9 +15,9 @@ class ReservationController extends ControllerBase {
   public function showAvailableTimes() {
     /*** @var ReservationService $reservationService */
     $reservationService = \Drupal::service(ReservationService::SERVICE_ID);
-    $tests = $reservationService->availTimes();
+    $availTimes = $reservationService->availTimes();
 
-    foreach ($tests as $key => $value) {
+    foreach ($availTimes as $key => $value) {
       if ($value) {
         $result = 'TRUE';
       }else{
@@ -25,7 +25,7 @@ class ReservationController extends ControllerBase {
       }
       $times[$key] = ['time'=>$key,'available'=>$result];
     }
-//var_dump($times);die();
+
     return [
       '#theme' => 'list_reservations',
       '#items' => $times,

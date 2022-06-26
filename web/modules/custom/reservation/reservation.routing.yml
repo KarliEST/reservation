@@ -14,4 +14,10 @@ reservation.reservations:
   requirements:
     _permission: 'access content'
 
-
+resume.form:
+  path: '/reservation-form'
+  defaults:
+    _title: 'Reservation form'
+    _form: '\Drupal\reservation\Form\ReservationForm'
+  requirements:
+    _permission: 'access content'
