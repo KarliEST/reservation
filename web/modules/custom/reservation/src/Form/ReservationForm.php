@@ -37,10 +37,16 @@ class ReservationForm extends FormBase {
     }
     //    var_dump($times);die();
 
+    $form['title'] = [
+      '#type' => 'textfield',
+      '#title' => t('Title:'),
+      '#required' => TRUE,
+    ];
+
     $form['body'] = [
       '#type' => 'textfield',
       '#title' => t('Body:'),
-      '#required' => FALSE,
+      '#required' => TRUE,
     ];
     $form['field_e_mail'] = [
       '#type' => 'email',
@@ -54,7 +60,7 @@ class ReservationForm extends FormBase {
 //      '#required' => TRUE,
 //    ];
 
-    $form['start_time'] = [
+    $form['field_start_date'] = [
       '#type' => 'radios',
       '#title' => ('Start time'),
       '#options' => $times,
@@ -65,7 +71,10 @@ class ReservationForm extends FormBase {
     $form['field_confirmed'] = [
       '#type' => 'checkbox',
       '#title' => t('Confirmed?'),
+      '#required' => TRUE,
+
     ];
+
     $form['actions']['#type'] = 'actions';
     $form['actions']['submit'] = [
       '#type' => 'submit',
@@ -75,9 +84,14 @@ class ReservationForm extends FormBase {
     return $form;
   }
 
+//  public function submitForm(array &$form, FormStateInterface $form_state) {
+//    // TODO: Implement submitForm() method.
+//  }
+
   public function submitForm(array &$form, FormStateInterface $form_state) {
+    // drupal_set_message($this->t('@can_name ,Your application is being submitted!', array('@can_name' => $form_state->getValue('candidate_name'))));
     foreach ($form_state->getValues() as $key => $value) {
-      drupal_set_message($key . ': ' . $value);
+      \Drupal::messenger()->addStatus($key . ': ' . $value);
     }
   }
 
