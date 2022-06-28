@@ -1,5 +1,5 @@
 reservation.test:
-  path: '/test'
+  path: '/testing'
   defaults:
     _controller: '\Drupal\reservation\Controller\ReservationController::test'
     _title: 'Funktsioonide Testimine'
