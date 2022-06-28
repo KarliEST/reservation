@@ -8,12 +8,25 @@
 /**
  * Implements hook_theme().
  */
-function reservation_theme() {
-
+function reservation_theme($existing, $type, $theme, $path) {
   return [
-    'list_reservations' => [
+    'reservation_list' => [
       'variables' => [
-        'items' => [],
+        'items'=>[]
+      ],
+    ],
+  ];
+}
+
+
+/**
+ * Implements hook_mail_alter().
+ */
+function reservation_mail_alter (&$message) {
+  return [
+    'automatic_email' => [
+      'variables' => [
+        'items'=>[]
       ],
     ],
   ];

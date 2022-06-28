@@ -25,13 +25,6 @@ class ReservationService {
     21 => TRUE,
   ];
 
-  public function getExample() {
-    $build['content'] = [
-      '#markup' => 'KOOD TÖÖTAB!!!!!!!!!!!!!!!!',
-    ];
-    return $build;
-  }
-
   /**
    * @return array
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
@@ -74,5 +67,11 @@ class ReservationService {
     }
     return $availTimes;
   }
+
+//  public function sendEmail() {
+//    $mailManager = \Drupal::service('plugin.manager.mail');
+//    $mailManager->mail($module, $key, $to, $langcode, $params, NULL, $send);
+//    return [];
+//  }
 
 }

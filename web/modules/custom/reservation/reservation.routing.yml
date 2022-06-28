@@ -1,8 +1,8 @@
-reservation.example:
-  path: '/api/v1/example'
+reservation.test:
+  path: '/test'
   defaults:
-    _controller: '\Drupal\reservation\Controller\ReservationController::example'
-    _title: 'See on test texti näitamiseks'
+    _controller: '\Drupal\reservation\Controller\ReservationController::test'
+    _title: 'Funktsioonide Testimine'
   requirements:
     _permission: 'access content'
 
@@ -14,10 +14,18 @@ reservation.reservations:
   requirements:
     _permission: 'access content'
 
-resume.form:
+reservation.reservations.form:
+  path: '/reservation'
+  defaults:
+    _controller: '\Drupal\reservation\Controller\ReservationController::reservationForm'
+    _title: 'Reservation'
+  requirements:
+    _permission: 'access content'
+
+reservation.form:
   path: '/reservation-form'
   defaults:
-    _title: 'Reservation form'
+    _title: 'Reservation Form'
     _form: '\Drupal\reservation\Form\ReservationForm'
   requirements:
     _permission: 'access content'

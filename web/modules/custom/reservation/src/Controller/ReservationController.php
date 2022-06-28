@@ -3,6 +3,7 @@
 namespace Drupal\reservation\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
+use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\reservation\Service\ReservationService;
 
 
@@ -16,44 +17,29 @@ class ReservationController extends ControllerBase {
     /*** @var ReservationService $reservationService */
     $reservationService = \Drupal::service(ReservationService::SERVICE_ID);
     $times = $reservationService->availTimes();
-
     return [
-      '#theme' => 'list_reservations',
+      '#theme' => 'reservation_list',
       '#items' => $times,
-      '#attached'=>['library'=>['reservation/reservation']]
+      '#attached' => ['library' => ['reservation/reservation']],
     ];
-
   }
 
+
+  public function reservationForm() {
+    $form = \Drupal::formBuilder()
+      ->getForm('Drupal\reservation\Form\ReservationForm');
+    return [
+      'form' => $form,
+    ];
+  }
 
   public function test() {
-    /*** @var ReservationService $reservationService */
-    $reservationService = \Drupal::service(ReservationService::SERVICE_ID);
-    $availTimes = $reservationService->availTimes();
-    $getAvailTimes = $reservationService->getAvailTimes();
-    var_dump($setDate);die();
+    $form = \Drupal::formBuilder()
+      ->getForm('Drupal\reservation\Form\ReservationForm');
+    return [
+      'form' => $form,
+    ];
   }
 
-  /**
-   * Builds the response.
-   */
-  public function example() {
-    $example = new ReservationService();
-    $result = $example->getExample();
-    return $result;
-  }
-
-
-  //  public function showAvailableTimes() {
-  //    /*** @var ReservationService $reservationService */
-  //    $reservationService = \Drupal::service(ReservationService::SERVICE_ID);
-  //
-  //    return new JsonResponse([
-  //      'data' => $reservationService->availTimes(),
-  //      'method' => 'GET',
-  //      'status' => 200,
-  //    ]);
-  //
-  //  }
 
 }
