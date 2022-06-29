@@ -68,10 +68,21 @@ class ReservationService {
     return $availTimes;
   }
 
-//  public function sendEmail() {
-//    $mailManager = \Drupal::service('plugin.manager.mail');
-//    $mailManager->mail($module, $key, $to, $langcode, $params, NULL, $send);
-//    return [];
-//  }
+  public function sendEmail($reservationTime,$contactName,$contactEmail) {
+
+    $mailManager = \Drupal::service('plugin.manager.mail');
+
+    $module = 'reservation';
+    $key = 'reservationId';
+    $to = $contactEmail;
+    $langcode = 'en';
+    $params['contact_name'] = $contactName;
+    $params['reservation_time'] = $reservationTime;
+    $send = TRUE;
+
+    $mailManager->mail($module, $key, $to, $langcode, $params, NULL, $send);
+
+    return [];
+  }
 
 }
