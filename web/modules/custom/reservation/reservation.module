@@ -12,23 +12,47 @@ function reservation_theme($existing, $type, $theme, $path) {
   return [
     'reservation_list' => [
       'variables' => [
-        'items'=>[]
+        'items' => [],
       ],
     ],
   ];
 }
 
-
 /**
- * Implements hook_mail_alter().
+ * Implements hook_theme().
  */
-function reservation_mail_alter (&$message) {
+function reservation_mail_theme() {
   return [
-    'automatic_email' => [
-      'variables' => [
-        'items'=>[]
+    'reservation_mail' => [
+      'render element' => 'elements',
+      'base hook' => [
+        'variables' => [
+          'module' => 'reservation',
+          'key' => '',
+          'recipient' => 'contact_name',
+          'subject' => 'Reservation confirmation',
+          'body' => '',
+        ],
       ],
     ],
+
   ];
+}
+
+/**
+ * Implements hook_mail().
+ */
+function reservation_mail($key, &$message, $params) {
+  // The $params array holds the values entered on the ExampleForm, stored
+  // with the same structure as the $form array. We need to copy these values
+  // to the appropriate place in the $message so that they get used when
+  // sending the email.
+  //  $message['from'] = isset($params['headers']['From']) ? $params['headers']['From'] : NULL;
+
+  $message['subject'] = t('Reservation confirmation');
+  $message['body'][] = t('Lugupeetud '.$params['contact_name'].',
+
+   Teie reserveering on kinnitatud!
+   Reserveeritud aeg on: '.$params['reservation_time']);
 }
 
