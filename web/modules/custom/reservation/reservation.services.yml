@@ -1,3 +1,4 @@
 services:
   reservation.reservation_service:
     class: Drupal\reservation\Service\ReservationService
+    arguments: ['@entity_type.manager','@date.formatter','@plugin.manager.mail']

@@ -2,7 +2,12 @@
 
 namespace Drupal\reservation\Service;
 
+use Drupal\Core\Datetime\DateFormatter;
 use Drupal\Core\Datetime\DrupalDateTime;
+use Drupal\Core\Entity\EntityTypeManager;
+use Drupal\mailsystem\MailsystemManager;
+use Drupal\webprofiler\Entity\EntityManagerWrapper;
+use Drupal\webprofiler\Mail\MailManagerWrapper;
 
 class ReservationService {
 
@@ -25,6 +30,21 @@ class ReservationService {
     21 => TRUE,
   ];
 
+  protected $entityTypeManager;
+  protected $dateFormatter;
+  protected $mailManager;
+
+
+  /**
+   * @param $entityTypeManager
+   */
+  public function __construct(EntityTypeManager $entityTypeManager, DateFormatter $dateFormatter, MailsystemManager $mailManager) {
+    $this->entityTypeManager = $entityTypeManager;
+    $this->dateFormatter = $dateFormatter;
+    $this->mailManager = $mailManager;
+  }
+
+
   /**
    * @return array
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
@@ -35,8 +55,7 @@ class ReservationService {
     foreach ($availTimes as $key => $value) {
       if ($value) {
         $result = 'TRUE';
-      }
-      else {
+      } else {
         $result = 'FALSE';
       }
       $times[$key] = ['time' => $key, 'available' => $result];
@@ -46,7 +65,7 @@ class ReservationService {
 
   public function getAvailTimes(): array {
 
-    $nodeStorage = \Drupal::entityTypeManager()->getStorage('node');
+    $nodeStorage = $this->entityTypeManager->getStorage('node');
     $reservationIds = $nodeStorage->getQuery()
       ->condition('type', 'reservation')
       ->condition('field_start_date', date('Y-m-d') . 'T00:00:00', '>')
@@ -60,17 +79,14 @@ class ReservationService {
       $reservation = $nodeStorage->load($reservationId);
 
       $date_original = new DrupalDateTime($reservation->field_start_date->value, 'UTC');
-      $dateTime = \Drupal::service('date.formatter')
-        ->format($date_original->getTimestamp(), 'custom', 'Y-m-d H:i:s');
+      $dateTime = $this->dateFormatter->format($date_original->getTimestamp(), 'custom', 'Y-m-d H:i:s');
       $reservationHour = (new \DateTime($dateTime))->format('G');
       $availTimes[$reservationHour] = FALSE;
     }
     return $availTimes;
   }
 
-  public function sendEmail($reservationTime,$contactName,$contactEmail) {
-
-    $mailManager = \Drupal::service('plugin.manager.mail');
+  public function sendEmail($reservationTime, $contactName, $contactEmail) {
 
     $module = 'reservation';
     $key = 'reservationId';
@@ -80,7 +96,7 @@ class ReservationService {
     $params['reservation_time'] = $reservationTime;
     $send = TRUE;
 
-    $mailManager->mail($module, $key, $to, $langcode, $params, NULL, $send);
+    $this->mailManager->mail($module, $key, $to, $langcode, $params, NULL, $send);
 
     return [];
   }

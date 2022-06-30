@@ -12,21 +12,31 @@ use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\node\Entity\Node;
 use Drupal\reservation\Service\ReservationService;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 
 class ReservationForm extends FormBase {
 
-  //  private ReservationService $reservationService;
+  protected $reservationService;
 
+  public function __construct(ReservationService $reservationService) {
+    $this->reservationService = $reservationService;
+  }
+
+  public static function create(ContainerInterface $container) {
+    return new static (
+      $container->get(ReservationService::SERVICE_ID)
+    );
+  }
 
   public function getFormId() {
     return 'reservation_form';
   }
 
   public function buildForm(array $form, FormStateInterface $form_state) {
-    /*** @var ReservationService $reservationService */
-    $reservationService = \Drupal::service(ReservationService::SERVICE_ID);
-    $times = $reservationService->getAvailTimes();
+//    /*** @var ReservationService $reservationService */
+//    $reservationService = \Drupal::service(ReservationService::SERVICE_ID);
+    $times = $this->reservationService->getAvailTimes();
 
     foreach ($times as $time => $bool) {
       if (!$bool) {
@@ -103,8 +113,8 @@ class ReservationForm extends FormBase {
     $node->set('field_confirmed', 1);
     $node->save();
 
-    $reservationService= new ReservationService();
-    $reservationService->sendEmail($reservationTime, $contactName, $contactEmail);
+
+    $this->reservationService->sendEmail($reservationTime, $contactName, $contactEmail);
 
     $url = \Drupal\Core\Url::fromUri('https://reservation.ddev.site/');
     $form_state->setRedirectUrl($url);

@@ -4,7 +4,9 @@ namespace Drupal\reservation\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Datetime\DrupalDateTime;
+use Drupal\Core\Form\FormBuilder;
 use Drupal\reservation\Service\ReservationService;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 
 /**
@@ -12,11 +14,24 @@ use Drupal\reservation\Service\ReservationService;
  */
 class ReservationController extends ControllerBase {
 
+  protected $reservationService;
+
+  protected $formBuilder;
+
+  public function __construct(ReservationService $reservationService, FormBuilder $formBuilder) {
+    $this->reservationService = $reservationService;
+    $this->formBuilder = $formBuilder;
+  }
+
+  public static function create(ContainerInterface $container) {
+    return new static(
+      $container->get(ReservationService::SERVICE_ID),
+      $container->get('form_builder')
+    );
+  }
 
   public function showAvailableTimes() {
-    /*** @var ReservationService $reservationService */
-    $reservationService = \Drupal::service(ReservationService::SERVICE_ID);
-    $times = $reservationService->availTimes();
+    $times = $this->reservationService->availTimes();
     return [
       '#theme' => 'reservation_list',
       '#items' => $times,
@@ -24,22 +39,11 @@ class ReservationController extends ControllerBase {
     ];
   }
 
-
   public function reservationForm() {
-    $form = \Drupal::formBuilder()
-      ->getForm('Drupal\reservation\Form\ReservationForm');
+    $form = $this->formBuilder->getForm('Drupal\reservation\Form\ReservationForm');
     return [
       'form' => $form,
     ];
   }
-
-  public function test() {
-    $form = \Drupal::formBuilder()
-      ->getForm('Drupal\reservation\Form\ReservationForm');
-    return [
-      'form' => $form,
-    ];
-  }
-
 
 }
