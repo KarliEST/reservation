@@ -108,7 +108,7 @@ class ReservationForm extends FormBase {
      */
     $node = Node::create(['type' => 'reservation']);
     $node->setTitle($contactName);
-    $node->set('field_e_mail', $contactEmail);
+    $node->set('field_email', $contactEmail);
     $node->set('field_start_date', $dateTimeWithZone);
     $node->set('field_confirmed', 1);
     $node->save();

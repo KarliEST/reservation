@@ -1,0 +1,3 @@
+administer reservation:
+  title: 'Administer reservation settings'
+  restrict access: true

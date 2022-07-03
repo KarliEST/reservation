@@ -8,7 +8,7 @@
 /**
  * Implements hook_theme().
  */
-function reservation_theme($existing, $type, $theme, $path) {
+function reservation_list_theme($existing, $type, $theme, $path) {
   return [
     'reservation_list' => [
       'variables' => [
@@ -56,3 +56,81 @@ function reservation_mail($key, &$message, $params) {
    Reserveeritud aeg on: '.$params['reservation_time']);
 }
 
+
+use Drupal\Core\Render\Element;
+use Drupal\reservation\Entity\Reservation;
+use Drupal\user\UserInterface;
+
+/**
+ * Implements hook_theme().
+ */
+function reservation_theme() {
+  return [
+    'reservation' => [
+      'render element' => 'elements',
+    ],
+  ];
+}
+
+/**
+ * Prepares variables for reservation templates.
+ *
+ * Default template: reservation.html.twig.
+ *
+ * @param array $variables
+ *   An associative array containing:
+ *   - elements: An associative array containing the reservation information and any
+ *     fields attached to the entity.
+ *   - attributes: HTML attributes for the containing element.
+ */
+function template_preprocess_reservation(array &$variables) {
+  $variables['view_mode'] = $variables['elements']['#view_mode'];
+  foreach (Element::children($variables['elements']) as $key) {
+    $variables['content'][$key] = $variables['elements'][$key];
+  }
+}
+
+/**
+ * Implements hook_user_cancel().
+ */
+function reservation_user_cancel($edit, UserInterface $account, $method) {
+  switch ($method) {
+    case 'user_cancel_block_unpublish':
+      // Unpublish reservations.
+      $storage = \Drupal::entityTypeManager()->getStorage('reservation');
+      $reservation_ids = $storage->getQuery()
+        ->condition('uid', $account->id())
+        ->condition('status', 1)
+        ->execute();
+      foreach ($storage->loadMultiple($reservation_ids) as $reservation) {
+        $reservation->set('status', FALSE);
+        $reservation->save();
+      }
+      break;
+
+    case 'user_cancel_reassign':
+      // Anonymize reservations.
+      $storage = \Drupal::entityTypeManager()->getStorage('reservation');
+      $reservation_ids = $storage->getQuery()
+        ->condition('uid', $account->id())
+        ->execute();
+      foreach ($storage->loadMultiple($reservation_ids) as $reservation) {
+        $reservation->setOwnerId(0);
+        $reservation->save();
+      }
+      break;
+  }
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_predelete() for user entities.
+ */
+function reservation_user_predelete(UserInterface $account) {
+  // Delete reservations.
+  $storage = \Drupal::entityTypeManager()->getStorage('reservation');
+  $reservation_ids = $storage->getQuery()
+    ->condition('uid', $account->id())
+    ->execute();
+  $reservations = $storage->loadMultiple($reservation_ids);
+  $storage->delete($reservations);
+}

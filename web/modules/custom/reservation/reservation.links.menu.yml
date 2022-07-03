@@ -1,0 +1,10 @@
+entity.reservation.settings:
+  title: 'Reservation'
+  description: 'Configure a Reservation entity type.'
+  route_name:  entity.reservation.settings
+  parent: system.admin_structure
+entity.reservation.collection:
+  title: 'Reservations'
+  description: 'List of reservations.'
+  route_name: entity.reservation.collection
+  parent: system.admin_content

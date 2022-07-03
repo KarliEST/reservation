@@ -21,3 +21,11 @@ reservation.form:
     _form: '\Drupal\reservation\Form\ReservationForm'
   requirements:
     _permission: 'access content'
+
+entity.reservation.settings:
+  path: 'admin/structure/reservation'
+  defaults:
+    _form: '\Drupal\reservation\Form\ReservationSettingsForm'
+    _title: 'Reservation'
+  requirements:
+    _permission: 'administer reservation'

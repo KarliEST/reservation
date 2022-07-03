@@ -38,7 +38,7 @@ class ReservationService {
   /**
    * @param $entityTypeManager
    */
-  public function __construct(EntityTypeManager $entityTypeManager, DateFormatter $dateFormatter, MailsystemManager $mailManager) {
+  public function __construct(EntityManagerWrapper $entityTypeManager, DateFormatter $dateFormatter, MailManagerWrapper $mailManager) {
     $this->entityTypeManager = $entityTypeManager;
     $this->dateFormatter = $dateFormatter;
     $this->mailManager = $mailManager;
@@ -65,9 +65,9 @@ class ReservationService {
 
   public function getAvailTimes(): array {
 
-    $nodeStorage = $this->entityTypeManager->getStorage('node');
+    $nodeStorage = $this->entityTypeManager->getStorage('reservation');
     $reservationIds = $nodeStorage->getQuery()
-      ->condition('type', 'reservation')
+//      ->condition('type', 'reservation')
       ->condition('field_start_date', date('Y-m-d') . 'T00:00:00', '>')
       ->condition('field_start_date', date('Y-m-d') . 'T23:59:59', '<')
       ->condition('field_confirmed', 1)

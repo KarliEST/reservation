@@ -1,0 +1,10 @@
+entity.reservation.edit_form:
+  route_name: entity.reservation.edit_form
+  group: reservation
+  title: Edit
+
+entity.reservation.delete_form:
+  route_name: entity.reservation.delete_form
+  group: reservation
+  title: Delete
+  weight: 10
