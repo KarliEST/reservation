@@ -1,8 +1,8 @@
 reservation.reservations:
-  path: '/reservations-list'
+  path: '/reservation-list'
   defaults:
     _controller: '\Drupal\reservation\Controller\ReservationController::showAvailableTimes'
-    _title: 'Reservations'
+    _title: 'Reservation list'
   requirements:
     _permission: 'access content'
 
@@ -14,13 +14,6 @@ reservation.reservations.form:
   requirements:
     _permission: 'access content'
 
-reservation.form:
-  path: '/reservation-form'
-  defaults:
-    _title: 'Reservation Form'
-    _form: '\Drupal\reservation\Form\ReservationForm'
-  requirements:
-    _permission: 'access content'
 
 entity.reservation.settings:
   path: 'admin/structure/reservation'

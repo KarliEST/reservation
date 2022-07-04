@@ -1,5 +1,9 @@
 <?php
 
+use Drupal\Core\Render\Element;
+use Drupal\reservation\Entity\Reservation;
+use Drupal\user\UserInterface;
+
 /**
  * @file
  * Provides a custom theme hook.
@@ -8,7 +12,7 @@
 /**
  * Implements hook_theme().
  */
-function reservation_list_theme($existing, $type, $theme, $path) {
+function reservation_list_theme() {
   return [
     'reservation_list' => [
       'variables' => [
@@ -56,10 +60,6 @@ function reservation_mail($key, &$message, $params) {
    Reserveeritud aeg on: '.$params['reservation_time']);
 }
 
-
-use Drupal\Core\Render\Element;
-use Drupal\reservation\Entity\Reservation;
-use Drupal\user\UserInterface;
 
 /**
  * Implements hook_theme().

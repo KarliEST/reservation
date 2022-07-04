@@ -67,7 +67,6 @@ class ReservationService {
 
     $nodeStorage = $this->entityTypeManager->getStorage('reservation');
     $reservationIds = $nodeStorage->getQuery()
-//      ->condition('type', 'reservation')
       ->condition('field_start_date', date('Y-m-d') . 'T00:00:00', '>')
       ->condition('field_start_date', date('Y-m-d') . 'T23:59:59', '<')
       ->condition('field_confirmed', 1)

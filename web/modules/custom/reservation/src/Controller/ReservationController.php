@@ -40,7 +40,7 @@ class ReservationController extends ControllerBase {
   }
 
   public function reservationForm() {
-    $form = $this->formBuilder->getForm('Drupal\reservation\Form\ReservationForm');
+    $form = $this->formBuilder->getForm('Drupal\reservation\Form\CustomReservationForm');
     return [
       'form' => $form,
     ];

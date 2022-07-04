@@ -30,6 +30,7 @@ use Drupal\user\EntityOwnerTrait;
  *       "add" = "Drupal\reservation\Form\ReservationForm",
  *       "edit" = "Drupal\reservation\Form\ReservationForm",
  *       "delete" = "Drupal\Core\Entity\ContentEntityDeleteForm",
+ *       "add_content" = "Drupal\reservation\Form\CustomReservationForm"
  *     },
  *     "route_provider" = {
  *       "html" = "Drupal\Core\Entity\Routing\AdminHtmlRouteProvider",
