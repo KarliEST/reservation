@@ -12,7 +12,7 @@ use Drupal\user\UserInterface;
 /**
  * Implements hook_theme().
  */
-function reservation_list_theme() {
+function reservation_theme() {
   return [
     'reservation_list' => [
       'variables' => [
@@ -61,16 +61,16 @@ function reservation_mail($key, &$message, $params) {
 }
 
 
-/**
- * Implements hook_theme().
- */
-function reservation_theme() {
-  return [
-    'reservation' => [
-      'render element' => 'elements',
-    ],
-  ];
-}
+///**
+// * Implements hook_theme().
+// */
+//function reservation_theme() {
+//  return [
+//    'reservation' => [
+//      'render element' => 'elements',
+//    ],
+//  ];
+//}
 
 /**
  * Prepares variables for reservation templates.
